@@ -1,0 +1,6 @@
+# Competition data and source clones are downloaded by scripts/fetch_data.sh, never committed
+# (the competition rules forbid redistributing the data).
+competition_data/
+reference/
+__pycache__/
+.ipynb_checkpoints/
