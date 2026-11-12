@@ -47,7 +47,7 @@ The public data has 129 tasks from fastapi (67), rich (48), requests (13) and ht
 
 ### 4.1 Leaderboard experiments
 
-Each submission changed one factor relative to an earlier one, except 004 and 009 (stated in Table 1). The hypothesis and a decision rule were recorded before each score came back. The settings of every configuration are given in Appendix A.
+Each submission changed one factor relative to an earlier one, except 004 and 009 (stated in Table 1). The hypothesis and a decision rule were recorded before each score came back. Submissions 004-006 and 008 use a budget-aware prompt taken from a public notebook (Zharov, 2026). It sets hard limits on tool calls and time, bans the graph tools, and gives the agent a call plan that requires an edit by the twelfth call. The settings of every configuration are given in Appendix A.
 
 ### 4.2 Offline localization test
 
@@ -207,6 +207,8 @@ Yang, J., Jimenez, C., Wettig, A., Lieret, K., Yao, S., Narasimhan, K., & Press,
 
 Zhang, Y., Ruan, H., Fan, Z., & Roychoudhury, A. (2024, September). Autocoderover: Autonomous program improvement. In Proceedings of the 33rd ACM SIGSOFT International Symposium on Software Testing and Analysis (pp. 1592-1604).
 
+Zharov, I. (2026). Gemma 4 | Budget-Aware Coding Agent v2 [Kaggle notebook]. Kaggle. https://www.kaggle.com/code/flexonafft/gemma-4-budget-aware-coding-agent-v2
+
 ## APPENDIX A: CONFIGURATIONS
 
 All configurations use the 31B model unless Table 1 says otherwise, top-p 0.95, and thinking on with its thoughts kept in the context.
@@ -230,7 +232,7 @@ The organizers' sample prompt asks the agent to read the issue, locate the relev
 
 **Budget-aware prompt (004-006, 008)**
 
-This prompt was adapted, with the model line changed, from a public competition notebook ("Gemma 4 Budget-Aware Coding Agent v2"). It sets hard limits (28 calls and 8 minutes, never edit or run whole test suites, never use the three graph tools) and a call plan. Calls 1-8 locate and read, calls 9-12 edit, and the agent must have edited a source file by call 12. Calls 13-20 verify, and the agent then finishes with `git diff` and `submit_patch`. The procedure asks for batched `git grep` searches, reading regions of about 40 lines with `sed`, `edit_file` with an exact `old_string`, at most two targeted test runs, and a final check of the diff.
+This prompt was taken unchanged from a public notebook (Zharov, 2026), with only the model line of the configuration changed. It sets hard limits (28 calls and 8 minutes, never edit or run whole test suites, never use the three graph tools) and a call plan. Calls 1-8 locate and read, calls 9-12 edit, and the agent must have edited a source file by call 12. Calls 13-20 verify, and the agent then finishes with `git diff` and `submit_patch`. The procedure asks for batched `git grep` searches, reading regions of about 40 lines with `sed`, `edit_file` with an exact `old_string`, at most two targeted test runs, and a final check of the diff.
 
 **Search steps (009)**
 
